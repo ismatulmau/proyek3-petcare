@@ -2,11 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GroomingController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\ResetPasswordController;
-use App\Http\Controllers\ConfirmPasswordController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -38,4 +33,28 @@ Route::middleware('guest')->group(function () {
 
 Auth::routes();
 
+//PETHOTEL
+Route::resource('pethotel', PethotelController::class);
+// Route untuk menampilkan halaman daftar produk
+Route::get('/pethotels', [PethotelController::class, 'index'])->name('pethotels.index');
 
+// Route untuk menampilkan form tambah produk
+Route::get('/pethotels/create', [PethotelController::class, 'create'])->name('pethotels.create');
+
+// Route untuk menyimpan produk baru dari form tambah
+Route::post('/pethotels', [PethotelController::class, 'store'])->name('pethotels.store');
+
+// Route untuk menampilkan detail produk
+Route::get('/pethotels/{id}', [PethotelController::class, 'show'])->name('pethotels.show');
+
+// Route untuk menampilkan form edit produk
+Route::get('/pethotels/{id}/edit', [PethotelController::class, 'edit'])->name('pethotels.edit');
+
+// Route untuk menyimpan perubahan pada produk dari form edit
+Route::put('/pethotels/{id}', [PethotelController::class, 'update'])->name('pethotels.update');
+
+// Route untuk menghapus produk
+Route::delete('/pethotels/{id}', [PethotelController::class, 'destroy'])->name('pethotels.destroy');
+
+
+Route::get('/papa','PethotelController@index');
